@@ -1,4 +1,11 @@
-# Transcript Generator + SSOT Contracts (Merlin-Scope)
+# Transcript Generator + SSOT Contracts (Merlin Scope)
+
+Synthetisches Conversation-Intelligence-System fuer B2B Sales und Support.
+
+Ziel: Aus Transkripten ein standardisiertes Datenprodukt erzeugen, das zwei Ebenen bedient:
+
+- Layer 1: Messaging- und Positionierungs-Insights auf Populationsebene
+- Layer 2: Assist Outputs pro einzelner Conversation (Assist Card + CRM Activation)
 
 ## Setup
 
@@ -6,7 +13,11 @@
 uv sync --all-groups
 ```
 
-`.env` ist optional und wird nicht ins Repo committed.
+Hinweise:
+
+- Python wird ueber `pyproject.toml` mit `>=3.11` gefuehrt.
+- `.env` ist optional und wird nicht committed.
+- Alle Kommandos laufen mit `uv run ...`.
 
 ## Run Generator
 
@@ -14,7 +25,22 @@ uv sync --all-groups
 uv run python -m apps.generator.generator --n 10 --seed 42 --provider dummy
 ```
 
-Standard-Output: `data/transcripts/raw/<run_id>/` mit `transcript_*.json` und `manifest.json`.
+Beispiel fuer groesseren Trainingsbatch:
+
+```bash
+uv run python -m apps.generator.generator --n 1000 --seed 2026 --provider dummy
+```
+
+Output:
+
+- Zielordner: `data/transcripts/raw/<run_id>/`
+- Dateien: `transcript_001.json` ... `transcript_<n>.json`
+- `manifest.json` mit:
+  - `run_id`
+  - `count_requested`
+  - `count_written`
+  - `failed_count`
+  - `files[]` (inkl. status/attempt/error)
 
 ## Run Tests
 
@@ -23,7 +49,20 @@ uv run ruff check .
 uv run pytest -q
 ```
 
+## Projektfluss (MVP Conveyor)
+
+1. Ingest transcript
+2. Normalize auf SSOT Contract
+3. Quality Gate (Schema + Vollstaendigkeit)
+4. Inference auf Signals
+5. Assist Card Erstellung
+6. Activation in Outbox/CRM Payload
+
+Inference laeuft pro Transcript. Training laeuft getrennt in Batches mit Eval-Gate.
+
 ## SSOT Contracts
+
+Schemas:
 
 - `packages/contracts/schemas/transcript_normalized.schema.json`
 - `packages/contracts/schemas/labels.schema.json`
@@ -31,9 +70,61 @@ uv run pytest -q
 - `packages/contracts/schemas/assist_card.schema.json`
 - `packages/contracts/schemas/crm_payload.schema.json`
 
-## Team Docs
+Beispiele:
+
+- `packages/contracts/examples/transcript_normalized.example.json`
+- `packages/contracts/examples/labels.example.json`
+- `packages/contracts/examples/signals.example.json`
+- `packages/contracts/examples/assist_card.example.json`
+- `packages/contracts/examples/crm_payload.example.json`
+
+## Taxonomie (verbindlich)
+
+- `channel`: `sales|support`
+- `stage`: `discovery|qualification|closing|onboarding|after_sales|support`
+- `segment`: `smb|midmarket|enterprise|agency`
+- `topics`: `integration, pricing, security, rollout, sla, onboarding, reporting, api, data_migration, procurement, compliance, training, customization, support_process, analytics`
+- `objections`: `price, timing, competitor, trust, compliance, resources, feature_gap, risk, internal_buy_in, legal_procurement`
+
+## Repository Struktur
+
+```text
+apps/generator/             # CLI Generator (dummy + gemini stub)
+packages/contracts/         # SSOT schemas + examples
+packages/core/              # config, logging, schema validation
+tests/                      # unit + integration + contract example tests
+docs/                       # scope, architecture, team workplan
+.github/workflows/ci.yml    # ruff + pytest
+```
+
+## Team Workflow
+
+Arbeitsregeln:
+
+- Contract-first: Jede Payload-Aenderung braucht Schema + Example + Tests.
+- CI muss gruen sein (`ruff`, `pytest`).
+- Kleine, fokussierte PRs pro Arbeitspaket.
+
+Siehe:
+
+- `CONTRIBUTING.md`
+- `.github/pull_request_template.md`
+- `.github/CODEOWNERS`
+
+## Team Dokumentation
 
 - `docs/PROJECT_SCOPE.md`
 - `docs/ARCHITECTURE.md`
 - `docs/TEAM_WORKPLAN.md`
-- `CONTRIBUTING.md`
+
+## Aktueller Stand
+
+Bereits erzeugter Trainingsbatch:
+
+- `data/transcripts/raw/20260325T154741Z`
+- `count_written=1000`
+- `failed_count=0`
+
+Fuer schnellen Handover an Training/EDA:
+
+- `data/transcripts/for_training/README.txt`
