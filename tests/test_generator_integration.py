@@ -18,7 +18,10 @@ def test_generator_writes_n_files_and_valid_manifest(tmp_path: Path) -> None:
 
     for file_entry in manifest["files"]:
         assert file_entry["status"] == "written"
+        assert file_entry["conversation_id"].startswith("c-")
         file_path = run_dir / file_entry["file_name"]
         assert file_path.exists()
         payload = json.loads(file_path.read_text(encoding="utf-8"))
+        assert payload["word_count"] >= 250
+        assert payload["word_count"] <= 600
         validate_json(instance=payload, schema_name="transcript_normalized.schema.json")

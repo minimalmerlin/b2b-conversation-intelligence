@@ -3,22 +3,13 @@
   "title": "CrmPayload",
   "type": "object",
   "required": [
-    "transcript_id",
-    "channel",
-    "stage",
-    "segment",
-    "topics",
-    "objections",
-    "account_domain",
-    "contact_email",
-    "status",
-    "estimated_arr",
-    "close_probability",
-    "owner_alias",
-    "next_step"
+    "conversation_id",
+    "target_crm",
+    "identity",
+    "actions"
   ],
   "properties": {
-    "transcript_id": {
+    "conversation_id": {
       "type": "string",
       "minLength": 1
     },
@@ -34,32 +25,27 @@
       "type": "string",
       "enum": ["smb", "midmarket", "enterprise", "agency"]
     },
-    "topics": {
-      "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "enum": [
-          "integration",
-          "pricing",
-          "security",
-          "rollout",
-          "sla",
-          "onboarding",
-          "reporting",
-          "api",
-          "data_migration",
-          "procurement",
-          "compliance",
-          "training",
-          "customization",
-          "support_process",
-          "analytics"
-        ]
-      }
+    "topic_pred": {
+      "type": "string",
+      "enum": [
+        "integration",
+        "pricing",
+        "security",
+        "rollout",
+        "sla",
+        "onboarding",
+        "reporting",
+        "api",
+        "data_migration",
+        "procurement",
+        "compliance",
+        "training",
+        "customization",
+        "support_process",
+        "analytics"
+      ]
     },
-    "objections": {
+    "objections_pred": {
       "type": "array",
       "uniqueItems": true,
       "items": {
@@ -78,34 +64,51 @@
         ]
       }
     },
-    "account_domain": {
+    "target_crm": {
       "type": "string",
-      "pattern": "^[a-z0-9-]+\\.example$"
+      "enum": ["webhook", "hubspot", "salesforce", "dynamics365"]
     },
-    "contact_email": {
-      "type": "string",
-      "format": "email"
+    "identity": {
+      "type": "object",
+      "required": ["participant_email", "account_domain"],
+      "properties": {
+        "participant_email": {
+          "type": "string",
+          "format": "email"
+        },
+        "account_domain": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+\\.[a-z0-9.-]+$"
+        }
+      },
+      "additionalProperties": false
     },
-    "status": {
-      "type": "string",
-      "enum": ["open", "won", "lost", "on_hold"]
-    },
-    "estimated_arr": {
-      "type": "number",
-      "minimum": 0
-    },
-    "close_probability": {
-      "type": "number",
-      "minimum": 0.0,
-      "maximum": 1.0
-    },
-    "owner_alias": {
-      "type": "string",
-      "pattern": "^agent_[0-9]{3}$"
-    },
-    "next_step": {
-      "type": "string",
-      "minLength": 10
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type", "body"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["create_note", "create_task", "create_email_draft"]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 3
+          },
+          "subject": {
+            "type": "string",
+            "minLength": 3
+          },
+          "body": {
+            "type": "string",
+            "minLength": 10
+          }
+        },
+        "additionalProperties": false
+      }
     }
   },
   "additionalProperties": false

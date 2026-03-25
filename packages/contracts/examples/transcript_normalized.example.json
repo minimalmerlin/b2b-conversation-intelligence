@@ -1,18 +1,22 @@
 {
-  "transcript_id": "tr_20260325t153000z_001",
+  "conversation_id": "c-20260325t153000z-001",
   "run_id": "20260325T153000Z",
-  "created_at": "2026-03-25T15:30:00Z",
   "provider": "dummy",
   "channel": "sales",
   "stage": "qualification",
   "segment": "midmarket",
-  "topics": ["integration", "security", "pricing"],
-  "objections": ["price", "compliance"],
-  "account_domain": "acct-1032.example",
-  "customer_email": "contact_001@acct-1032.example",
-  "agent_email": "agent_001@vendor-suite.example",
-  "language": "en",
-  "transcript_text": "Customer: We are evaluating a sales workflow for the midmarket program at acct-1032.example, and we need clear coverage for integration while reducing price concerns before the next procurement review. Agent: We can structure a phased rollout with documented controls, practical onboarding steps, and weekly checkpoints so your team can verify security outcomes and unblock stakeholders who flagged compliance during qualification. Customer: We are evaluating a sales workflow for the midmarket program at acct-1032.example, and we need clear coverage for pricing while reducing compliance concerns before the next procurement review. Agent: We can structure a phased rollout with documented controls, practical onboarding steps, and weekly checkpoints so your team can verify integration outcomes and unblock stakeholders who flagged price during qualification. Customer: We are evaluating a sales workflow for the midmarket program at acct-1032.example, and we need clear coverage for security while reducing compliance concerns before the next procurement review. Agent: We can structure a phased rollout with documented controls, practical onboarding steps, and weekly checkpoints so your team can verify pricing outcomes and unblock stakeholders who flagged price during qualification. Customer: We are evaluating a sales workflow for the midmarket program at acct-1032.example, and we need clear coverage for integration while reducing compliance concerns before the next procurement review. Agent: We can structure a phased rollout with documented controls, practical onboarding steps, and weekly checkpoints so your team can verify pricing outcomes and unblock stakeholders who flagged price during qualification. Customer: We are evaluating a sales workflow for the midmarket program at acct-1032.example, and we need clear coverage for security while reducing compliance concerns before the next procurement review. Agent: We can structure a phased rollout with documented controls, practical onboarding steps, and weekly checkpoints so your team can verify integration outcomes and unblock stakeholders who flagged price during qualification. Customer: We are evaluating a sales workflow for the midmarket program at acct-1032.example, and we need clear coverage for pricing while reducing compliance concerns before the next procurement review. Agent: We can structure a phased rollout with documented controls, practical onboarding steps, and weekly checkpoints so your team can verify security outcomes and unblock stakeholders who flagged price during qualification. Customer: We are evaluating a sales workflow for the midmarket program at acct-1032.example, and we need clear coverage for integration while reducing compliance concerns before the next procurement review. Agent: We can structure a phased rollout with documented controls, practical onboarding steps, and weekly checkpoints so your team can verify pricing outcomes and unblock stakeholders who flagged price during qualification.",
-  "word_count": 463
+  "product": "B2B SaaS Data & Marketing Platform",
+  "account_domain": "acme-example.com",
+  "participant_email": "alex@acme-example.com",
+  "created_at": "2026-03-25T16:00:00+01:00",
+  "transcript_text": "Customer: We are evaluating your platform for a midmarket rollout, and the primary blocker is integration effort with our current CRM and reporting stack. Agent: We can support phased integration and provide a technical map, including API checkpoints and sandbox validation in week one. Customer: Pricing is still an issue because procurement wants predictable cost bands and no hidden implementation line items. Agent: We can provide a transparent pricing matrix, implementation assumptions, and a scoped rollout option for your first business unit. Customer: Security and compliance reviews are running in parallel, and the internal team worries about audit evidence and change logging. Agent: We provide policy mappings, access logs, and a review pack that can be used directly in your internal compliance workflow. Customer: Another concern is resources because the operations team is already overloaded this quarter. Agent: We can split onboarding into smaller milestones and assign owners so your team can move without a full internal reorganization. Customer: If the rollout plan is realistic and procurement is comfortable, we can schedule a technical deep dive next week. Agent: Great, I will send a concise next-step plan with stakeholders, timeline, and expected deliverables by tomorrow morning. Customer: Please include reporting requirements and a clear summary for legal and procurement. Agent: Understood, I will include reporting, compliance notes, and a draft approval checklist for your review.",
+  "word_count": 278,
+  "labels": {
+    "topic_gt": "integration",
+    "objections_gt": [
+      "resources",
+      "compliance"
+    ],
+    "outcome_gt": "next_step_scheduled"
+  }
 }
-

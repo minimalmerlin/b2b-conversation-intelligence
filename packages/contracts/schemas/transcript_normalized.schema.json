@@ -3,24 +3,19 @@
   "title": "TranscriptNormalized",
   "type": "object",
   "required": [
-    "transcript_id",
-    "run_id",
-    "created_at",
-    "provider",
+    "conversation_id",
     "channel",
     "stage",
     "segment",
-    "topics",
-    "objections",
+    "product",
     "account_domain",
-    "customer_email",
-    "agent_email",
-    "language",
+    "participant_email",
     "transcript_text",
-    "word_count"
+    "created_at",
+    "labels"
   ],
   "properties": {
-    "transcript_id": {
+    "conversation_id": {
       "type": "string",
       "minLength": 1
     },
@@ -28,97 +23,134 @@
       "type": "string",
       "minLength": 1
     },
-    "created_at": {
-      "type": "string",
-      "format": "date-time"
-    },
     "provider": {
       "type": "string",
-      "enum": ["dummy", "gemini"]
+      "enum": [
+        "dummy",
+        "gemini"
+      ]
     },
     "channel": {
       "type": "string",
-      "enum": ["sales", "support"]
+      "enum": [
+        "sales",
+        "support"
+      ]
     },
     "stage": {
       "type": "string",
-      "enum": ["discovery", "qualification", "closing", "onboarding", "after_sales", "support"]
+      "enum": [
+        "discovery",
+        "qualification",
+        "closing",
+        "onboarding",
+        "after_sales",
+        "support"
+      ]
     },
     "segment": {
       "type": "string",
-      "enum": ["smb", "midmarket", "enterprise", "agency"]
+      "enum": [
+        "smb",
+        "midmarket",
+        "enterprise",
+        "agency"
+      ]
     },
-    "topics": {
-      "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "enum": [
-          "integration",
-          "pricing",
-          "security",
-          "rollout",
-          "sla",
-          "onboarding",
-          "reporting",
-          "api",
-          "data_migration",
-          "procurement",
-          "compliance",
-          "training",
-          "customization",
-          "support_process",
-          "analytics"
-        ]
-      }
-    },
-    "objections": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "enum": [
-          "price",
-          "timing",
-          "competitor",
-          "trust",
-          "compliance",
-          "resources",
-          "feature_gap",
-          "risk",
-          "internal_buy_in",
-          "legal_procurement"
-        ]
-      }
+    "product": {
+      "type": "string",
+      "minLength": 3
     },
     "account_domain": {
       "type": "string",
-      "pattern": "^[a-z0-9-]+\\.example$"
+      "pattern": "^[a-z0-9-]+\\.[a-z0-9.-]+$"
     },
-    "customer_email": {
+    "participant_email": {
       "type": "string",
       "format": "email"
-    },
-    "agent_email": {
-      "type": "string",
-      "format": "email"
-    },
-    "language": {
-      "type": "string",
-      "const": "en"
     },
     "transcript_text": {
       "type": "string",
       "minLength": 1000,
-      "pattern": "Customer:"
+      "allOf": [
+        {
+          "pattern": "Customer:"
+        },
+        {
+          "pattern": "Agent:"
+        }
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
     },
     "word_count": {
       "type": "integer",
       "minimum": 250,
       "maximum": 600
+    },
+    "labels": {
+      "type": "object",
+      "required": [
+        "topic_gt",
+        "objections_gt",
+        "outcome_gt"
+      ],
+      "properties": {
+        "topic_gt": {
+          "type": "string",
+          "enum": [
+            "integration",
+            "pricing",
+            "security",
+            "rollout",
+            "sla",
+            "onboarding",
+            "reporting",
+            "api",
+            "data_migration",
+            "procurement",
+            "compliance",
+            "training",
+            "customization",
+            "support_process",
+            "analytics"
+          ]
+        },
+        "objections_gt": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "price",
+              "timing",
+              "competitor",
+              "trust",
+              "compliance",
+              "resources",
+              "feature_gap",
+              "risk",
+              "internal_buy_in",
+              "legal_procurement"
+            ]
+          }
+        },
+        "outcome_gt": {
+          "type": "string",
+          "enum": [
+            "next_step_scheduled",
+            "resolved",
+            "escalated",
+            "won",
+            "lost",
+            "no_decision"
+          ]
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false
 }
-

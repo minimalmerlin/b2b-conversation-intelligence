@@ -1,17 +1,16 @@
 {
-  "transcript_id": "tr_20260325t153000z_001",
+  "conversation_id": "c-20260325t153000z-001",
   "channel": "sales",
   "stage": "qualification",
   "segment": "midmarket",
-  "topics": ["integration", "security", "pricing"],
-  "objections": ["price", "compliance"],
-  "summary": "Buyer asks for implementation certainty and compliance clarity before procurement sign-off.",
+  "topic_pred": "integration",
+  "objections_pred": [
+    "resources",
+    "compliance"
+  ],
+  "outcome_pred": "next_step_scheduled",
   "sentiment_score": 0.15,
-  "urgency_score": 0.73,
-  "risk_level": "medium",
-  "follow_up_actions": [
-    "Send phased rollout plan with owners and deadlines.",
-    "Share compliance controls mapped to buyer requirements."
-  ]
+  "friction_score": 0.62,
+  "confidence": 0.84,
+  "notes": "High integration focus with compliance and bandwidth objections."
 }
-

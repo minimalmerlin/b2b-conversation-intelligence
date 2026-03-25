@@ -8,7 +8,9 @@ from pathlib import Path
 
 from packages.core.config import (
     CHANNELS,
+    DEFAULT_PRODUCT,
     OBJECTIONS,
+    OUTCOMES,
     SEGMENTS,
     STAGES,
     TOPICS,
@@ -77,6 +79,10 @@ def _dummy_transcript_text(
             ]
         )
         transcript_text = "\n".join(lines)
+
+    while _word_count(transcript_text) > 600 and len(lines) > 2:
+        lines = lines[:-2]
+        transcript_text = "\n".join(lines)
     return transcript_text
 
 
@@ -103,21 +109,23 @@ def _generate_dummy_transcript(
     )
 
     payload = {
-        "transcript_id": f"tr_{run_id.lower()}_{index:03d}",
+        "conversation_id": f"c-{run_id.lower()}-{index:03d}",
         "run_id": run_id,
-        "created_at": _to_iso8601(datetime.now(tz=UTC)),
         "provider": "dummy",
         "channel": channel,
         "stage": stage,
         "segment": segment,
-        "topics": topics,
-        "objections": objections,
+        "product": DEFAULT_PRODUCT,
         "account_domain": account_domain,
-        "customer_email": f"contact_{index:03d}@{account_domain}",
-        "agent_email": f"agent_{index:03d}@vendor-suite.example",
-        "language": "en",
+        "participant_email": f"contact_{index:03d}@{account_domain}",
         "transcript_text": transcript_text,
+        "created_at": _to_iso8601(datetime.now(tz=UTC)),
         "word_count": _word_count(transcript_text),
+        "labels": {
+            "topic_gt": topics[0],
+            "objections_gt": objections,
+            "outcome_gt": rng.choice(OUTCOMES),
+        },
     }
     return payload
 
@@ -172,7 +180,7 @@ def generate_transcripts(
                 manifest["files"].append(
                     {
                         "file_name": file_name,
-                        "transcript_id": payload["transcript_id"],
+                        "conversation_id": payload["conversation_id"],
                         "status": "written",
                         "attempt": attempt,
                     }
@@ -193,7 +201,7 @@ def generate_transcripts(
             manifest["files"].append(
                 {
                     "file_name": file_name,
-                    "transcript_id": None,
+                    "conversation_id": None,
                     "status": "failed",
                     "error": last_error,
                 }

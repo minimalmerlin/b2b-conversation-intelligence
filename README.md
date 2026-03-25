@@ -22,3 +22,18 @@ Standard-Output: `data/transcripts/raw/<run_id>/` mit `transcript_*.json` und `m
 uv run ruff check .
 uv run pytest -q
 ```
+
+## SSOT Contracts
+
+- `packages/contracts/schemas/transcript_normalized.schema.json`
+- `packages/contracts/schemas/labels.schema.json`
+- `packages/contracts/schemas/signals.schema.json`
+- `packages/contracts/schemas/assist_card.schema.json`
+- `packages/contracts/schemas/crm_payload.schema.json`
+
+## Team Docs
+
+- `docs/PROJECT_SCOPE.md`
+- `docs/ARCHITECTURE.md`
+- `docs/TEAM_WORKPLAN.md`
+- `CONTRIBUTING.md`

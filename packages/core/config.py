@@ -13,6 +13,14 @@ STAGES = (
     "support",
 )
 SEGMENTS = ("smb", "midmarket", "enterprise", "agency")
+OUTCOMES = (
+    "next_step_scheduled",
+    "resolved",
+    "escalated",
+    "won",
+    "lost",
+    "no_decision",
+)
 TOPICS = (
     "integration",
     "pricing",
@@ -42,6 +50,7 @@ OBJECTIONS = (
     "internal_buy_in",
     "legal_procurement",
 )
+DEFAULT_PRODUCT = "B2B SaaS Data & Marketing Platform"
 
 
 @dataclass(frozen=True)

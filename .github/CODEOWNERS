@@ -1,0 +1,7 @@
+* @minimalmerlin
+
+/apps/generator/ @minimalmerlin
+/packages/contracts/ @minimalmerlin
+/packages/core/ @minimalmerlin
+/tests/ @minimalmerlin
+/docs/ @minimalmerlin

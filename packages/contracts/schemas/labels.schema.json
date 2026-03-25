@@ -1,38 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Signals",
+  "title": "Labels",
   "type": "object",
   "required": [
-    "conversation_id",
-    "channel",
-    "stage",
-    "segment",
-    "topic_pred",
-    "objections_pred",
-    "outcome_pred",
-    "sentiment_score",
-    "friction_score",
-    "confidence",
-    "notes"
+    "topic_gt",
+    "objections_gt",
+    "outcome_gt"
   ],
   "properties": {
-    "conversation_id": {
-      "type": "string",
-      "minLength": 1
-    },
-    "channel": {
-      "type": "string",
-      "enum": ["sales", "support"]
-    },
-    "stage": {
-      "type": "string",
-      "enum": ["discovery", "qualification", "closing", "onboarding", "after_sales", "support"]
-    },
-    "segment": {
-      "type": "string",
-      "enum": ["smb", "midmarket", "enterprise", "agency"]
-    },
-    "topic_pred": {
+    "topic_gt": {
       "type": "string",
       "enum": [
         "integration",
@@ -52,7 +28,7 @@
         "analytics"
       ]
     },
-    "objections_pred": {
+    "objections_gt": {
       "type": "array",
       "uniqueItems": true,
       "items": {
@@ -71,7 +47,7 @@
         ]
       }
     },
-    "outcome_pred": {
+    "outcome_gt": {
       "type": "string",
       "enum": [
         "next_step_scheduled",
@@ -81,25 +57,6 @@
         "lost",
         "no_decision"
       ]
-    },
-    "sentiment_score": {
-      "type": "number",
-      "minimum": -1.0,
-      "maximum": 1.0
-    },
-    "friction_score": {
-      "type": "number",
-      "minimum": 0.0,
-      "maximum": 1.0
-    },
-    "confidence": {
-      "type": "number",
-      "minimum": 0.0,
-      "maximum": 1.0
-    },
-    "notes": {
-      "type": "string",
-      "minLength": 10
     }
   },
   "additionalProperties": false
