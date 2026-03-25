@@ -1,0 +1,22 @@
+{
+  "transcript_id": "tr_20260325t153000z_001",
+  "channel": "sales",
+  "stage": "qualification",
+  "segment": "midmarket",
+  "topics": ["integration", "security", "pricing"],
+  "objections": ["price", "compliance"],
+  "headline": "Buyer needs confidence in rollout and compliance execution.",
+  "talk_track": [
+    "Lead with phased rollout milestones and practical ownership.",
+    "Tie security controls directly to stated procurement criteria."
+  ],
+  "key_questions": [
+    "Which control evidence is mandatory for your approval board?",
+    "What timeline constraints impact procurement and onboarding?"
+  ],
+  "do_not_say": [
+    "Do not promise timelines without operational ownership."
+  ],
+  "next_step": "Book a 30-minute review with operations and compliance stakeholders."
+}
+

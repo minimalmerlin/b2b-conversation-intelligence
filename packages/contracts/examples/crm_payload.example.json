@@ -1,0 +1,15 @@
+{
+  "transcript_id": "tr_20260325t153000z_001",
+  "channel": "sales",
+  "stage": "qualification",
+  "segment": "midmarket",
+  "topics": ["integration", "security", "pricing"],
+  "objections": ["price", "compliance"],
+  "account_domain": "acct-1032.example",
+  "contact_email": "contact_001@acct-1032.example",
+  "status": "open",
+  "estimated_arr": 78000,
+  "close_probability": 0.48,
+  "owner_alias": "agent_001",
+  "next_step": "Send procurement-ready security mapping and rollout proposal by Friday."
+}
