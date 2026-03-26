@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import type { Lesson, TrackId } from "@/lib/curriculum";
 import { getTrack, TRACKS } from "@/lib/curriculum";
+import { getActiveProfileId, subscribeProfiles } from "@/lib/profiles";
 
 type StoredProgress = {
   completedLessons: Record<string, true>;
@@ -62,18 +63,27 @@ function emit() {
 
 function readProgress(): StoredProgress {
   if (typeof window === "undefined") return DEFAULT_PROGRESS;
-  return safeParse(window.localStorage.getItem(STORAGE_KEY));
+  const profileId = getActiveProfileId();
+  return safeParse(window.localStorage.getItem(`${STORAGE_KEY}:${profileId}`));
 }
 
 function writeProgress(next: StoredProgress) {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+  const profileId = getActiveProfileId();
+  window.localStorage.setItem(
+    `${STORAGE_KEY}:${profileId}`,
+    JSON.stringify(next),
+  );
   emit();
 }
 
 export function useProgress() {
   const subscribe = useCallback((cb: () => void) => {
     listeners.add(cb);
-    return () => listeners.delete(cb);
+    const unsubscribeProfiles = subscribeProfiles(cb);
+    return () => {
+      listeners.delete(cb);
+      unsubscribeProfiles();
+    };
   }, []);
 
   const snapshot = useCallback(() => readProgress(), []);
@@ -141,7 +151,7 @@ export function useProgress() {
 
   useEffect(() => {
     function onStorage(e: StorageEvent) {
-      if (e.key === STORAGE_KEY) emit();
+      if (e.key && e.key.startsWith(`${STORAGE_KEY}:`)) emit();
     }
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
@@ -156,4 +166,3 @@ export function useProgress() {
     badges,
   };
 }
-

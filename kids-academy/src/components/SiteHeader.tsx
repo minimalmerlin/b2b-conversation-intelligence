@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ProgressPill } from "@/components/ProgressPill";
+import { ProfilePill } from "@/components/ProfilePill";
 
 export function SiteHeader() {
   return (
@@ -16,6 +17,12 @@ export function SiteHeader() {
             <span className="text-zinc-50">CodeQuest Academy</span>
           </Link>
           <nav className="hidden items-center gap-1 text-sm text-zinc-200 sm:flex">
+            <Link
+              href="/dashboard"
+              className="rounded-full px-3 py-2 hover:bg-white/5 hover:text-white"
+            >
+              Dashboard
+            </Link>
             <Link
               href="/learn"
               className="rounded-full px-3 py-2 hover:bg-white/5 hover:text-white"
@@ -38,10 +45,10 @@ export function SiteHeader() {
         </div>
 
         <div className="flex items-center gap-2">
+          <ProfilePill />
           <ProgressPill />
         </div>
       </div>
     </header>
   );
 }
-
