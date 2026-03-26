@@ -42,6 +42,47 @@ Output:
   - `failed_count`
   - `files[]` (inkl. status/attempt/error)
 
+## Run Conveyor Pipeline (Normalize → Signals → Assist → Outbox)
+
+- Letzten Run verarbeiten (auto-apply = Assist sofort in Outbox):
+
+```bash
+uv run python -m apps.pipeline.run_pipeline --auto-apply
+```
+
+- Bestimmten Run verarbeiten:
+
+```bash
+uv run python -m apps.pipeline.run_pipeline --run-id 20260325T154741Z --auto-apply
+```
+
+## Build Insights
+
+```bash
+uv run python -m apps.insights.build_insights --window-size 50
+```
+
+Speichert Snapshot in `data/insights/latest_insights.json` und DB.
+
+## Dispatch Outbox
+
+```bash
+uv run python -m apps.activation.dispatch_outbox --limit 50 --dry-run
+```
+
+Ohne `--dry-run` wird per POST an `WEBHOOK_URL` (Default: http://127.0.0.1:8089/webhook) gesendet.
+
+## Streamlit UI (Inbox/Detail/Insights/Outbox)
+
+```bash
+uv run streamlit run apps/streamlit_app/app.py
+```
+
+## Airflow DAGs (Assets)
+
+- `dags/conveyor_pipeline_dag.py` (daily dummy gen + pipeline + insights + outbox dry-run)
+- `dags/batch_training_stub_dag.py` (weekly training stub)
+
 ## Run Tests
 
 ```bash
