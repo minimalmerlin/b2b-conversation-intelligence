@@ -121,17 +121,6 @@ Beispiele:
 
 ---
 
-## Kids Coding Academy (Next.js)
-
-Dieses Repo enthält zusätzlich die Demo‑Webapp **CodeQuest Academy** unter `kids-academy/`.
-
-```bash
-cd kids-academy
-npm run dev
-```
-
-Deploy: in Vercel beim Projekt die **Root Directory** auf `kids-academy` setzen.
-
 ## Taxonomie (verbindlich)
 
 - `channel`: `sales|support`
